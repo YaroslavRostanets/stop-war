@@ -151,6 +151,9 @@ class NoWarUkraine {
                 .s-w-modal {
                     padding-top: 0px;
                 }
+                .s-w-modal p {
+                    margin: 0;
+                }
             }
         </style>`)
         const button = document.createElement('img');
