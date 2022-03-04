@@ -103,37 +103,78 @@ class NoWarUkraine {
     }
 
     init(lang='en') {
+        document.head.insertAdjacentHTML("beforeend", `
+        <style>
+            .s-w-modal {
+                display: none;position: 
+                fixed;z-index: 1001;
+                padding-top: 100px;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgb(0,0,0);
+                background-color: rgba(0,0,0,0.7)
+            }
+            .s-w-close-modal {
+                color: #aaaaaa;
+                font-size: 28px;
+                font-weight: bold;
+                position: absolute;
+                top: 7px;
+                right: 15px;
+            }
+            .s-w-close-modal:hover {
+                cursor: pointer;
+            }
+            .s-w-content-body {
+                background-color: #fefefe;
+                margin: auto;
+                border-radius:10px;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%;
+                font-size: 14px;
+                max-width: 600px;
+                word-break: break-word;
+                max-height: 90%;
+                font-family:Garamond, Sans-serif;
+                position: relative;
+            }
+            .s-w-content-body-in {
+                width: 100%;
+                overflow: auto;
+                max-height: 90vh;
+            }
+            @media (max-width: 480px){
+                .s-w-modal {
+                    padding-top: 0px;
+                }
+            }
+        </style>`)
         const button = document.createElement('img');
         const modal = document.createElement('div');
         const id = 'no-war-ukraine' + Date.now();
         button.setAttribute('id', 'button-' + id);
         button.setAttribute('src', 'https://ukraine-not-war.github.io/stop-war/images/stop_war.svg');
         modal.setAttribute('id', 'modal-' + id);
+        modal.setAttribute('class', 's-w-modal');
         document.body.prepend(button);
         document.body.prepend(modal);
         button.style.cssText = 'position:fixed;top:100px;right:-12px;z-index:1000;width:100px;height:80px;cursor:pointer';
         // button.innerHTML = `<div>Nest</div>`;
-        modal.style.cssText = 'display: none;position: fixed;z-index: 1001;padding-top: 100px;left: 0;top: 0;width: 100%;height: 100%;overflow: auto;background-color: rgb(0,0,0);background-color: rgba(0,0,0,0.7)';
         modal.innerHTML = ` 
          <!-- Modal content -->
-          <p style="background-color: #fefefe;
-          margin: auto;
-          border-radius:10px;
-          padding: 20px;
-          border: 1px solid #888;
-          width: 80%;
-          font-size: 14px;
-          max-width: 600px;
-          word-break: break-word;
-          max-height: 90%;
-          font-family:Garamond, Sans-serif;">
-            <span id="close-modal-${id}" style="color: #aaaaaa;
-          float: right;
-          font-size: 28px;
-          font-weight: bold;
-          overflow-y:scroll;">&times;</span>
-        ${this.setModalContent(lang)}
-          </p>`;
+         <div class="s-w-content-body">
+            <span id="close-modal-${id}" class="s-w-close-modal">&times;</span>
+            <div class="s-w-content-body-in">
+                <p>
+                ${this.setModalContent(lang)}
+                </p>
+            </div>
+         </div>
+          `;
         button.addEventListener('click', function () {
             modal.querySelector("#close-modal-" + id).addEventListener('click', _ => modal.style.display = "none");
             modal.style.display = "block";

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./js/widget.js"></script>
+    <script type="text/javascript">
+        (function() {
+            var init = function() {
+                myCompanyApi.init('en');
+            };
+            if (typeof myCompanyApi !== 'undefined') {
+                init();
+            } else {
+                (myCompanyApiInitCallbacks = window.myCompanyApiInitCallbacks || []).push(init);
+            }
+        })();
+    </script>
+</body>
+</html>
